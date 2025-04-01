@@ -33,7 +33,7 @@ export class NeonDatabaseProvider implements StorageProvider {
       const tableName = this.getTableNameFromKey(key);
 
       // Buscar todos os itens da tabela
-      const result = await sql`SELECT id, data FROM ${sql(tableName)}`;
+      const result = await sql`SELECT id, data FROM ${tableName}`;
 
       if (!result || result.length === 0) return null;
 
@@ -58,12 +58,12 @@ export class NeonDatabaseProvider implements StorageProvider {
       const tableName = this.getTableNameFromKey(key);
 
       // Limpar a tabela existente
-      await sql`TRUNCATE ${sql(tableName)}`;
+      await sql`TRUNCATE ${tableName}`;
 
       // Se o valor for um array, inserir cada item
       if (Array.isArray(value)) {
         for (const item of value) {
-          await sql`INSERT INTO ${sql(tableName)} (id, data) VALUES (${
+          await sql`INSERT INTO ${tableName} (id, data) VALUES (${
             item.id
           }, ${JSON.stringify(item)})`;
         }
